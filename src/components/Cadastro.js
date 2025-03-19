@@ -1,18 +1,20 @@
-// crie um cadastro que solicite nome, email e idade
-// e exiba os dados em tela
-//
-
 import React, { useState } from 'react';
 
 export default function Cadastro() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [idade, setIdade] = useState('');
-    
+
+    const handleRegistro = (e) => {
+        e.preventDefault(); // Evita o comportamento padrão de recarregar a página
+        console.log('Dados registrados:', { nome, email, idade });
+        alert('Cadastro realizado com sucesso!');
+    };
+
     return (
         <div>
         <h1>Cadastro</h1>
-        <form>
+        <form onSubmit={handleRegistro}>
             <label>
             Nome:
             <input
@@ -37,6 +39,7 @@ export default function Cadastro() {
                 onChange={(e) => setIdade(e.target.value)}
             />
             </label>
+            <button type="submit">Registrar</button>
         </form>
         <div>
             <h2>Dados</h2>
@@ -46,6 +49,4 @@ export default function Cadastro() {
         </div>
         </div>
     );
-    }
-
-    
+}
