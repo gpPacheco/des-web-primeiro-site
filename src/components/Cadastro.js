@@ -1,52 +1,58 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
-export default function Cadastro() {
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [idade, setIdade] = useState('');
-
-    const handleRegistro = (e) => {
-        e.preventDefault(); // Evita o comportamento padrão de recarregar a página
-        console.log('Dados registrados:', { nome, email, idade });
-        alert('Cadastro realizado com sucesso!');
-    };
-
-    return (
-        <div>
-        <h1>Cadastro</h1>
-        <form onSubmit={handleRegistro}>
-            <label>
-            Nome:
-            <input
-                type="text"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-            />
-            </label>
-            <label>
-            Email:
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            </label>
-            <label>
-            Idade:
-            <input
-                type="number"
-                value={idade}
-                onChange={(e) => setIdade(e.target.value)}
-            />
-            </label>
-            <button type="submit">Registrar</button>
-        </form>
-        <div>
-            <h2>Dados</h2>
-            <p>Nome: {nome}</p>
-            <p>Email: {email}</p>
-            <p>Idade: {idade}</p>
-        </div>
-        </div>
-    );
+function Cadastro() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [idade, setIdade] = useState("");
+  const [user, setUser] = useState({});
+  function handleRegistro(e) {
+    e.preventDefault();
+    setUser({
+      nome: nome,
+      idade: idade,
+      email: email,
+    });
+  }
+  return (
+    <div>
+      <form onSubmit={handleRegistro}>
+        <label>Nome: </label>
+        <br />
+        <input
+          placeholder="Digite seu Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
+        <br />
+        <label>Email: </label>
+        <br />
+        <input
+          placeholder="Digite seu Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <label>Idade: </label>
+        <br />
+        <input
+          placeholder="Digite sua Idade"
+          value={idade}
+          onChange={(e) => setIdade(e.target.value)}
+        />
+        <br />
+        <button type="submit">Registro</button>
+      </form>
+      <br />
+      <br />
+      <div>
+        <span>Bem vindo, {user.nome}</span>
+        <br />
+        <span>Idade: {user.idade}</span>
+        <br />
+        <span>Email: {user.email}</span>
+        <br />
+      </div>
+    </div>
+  );
 }
+export default Cadastro;
