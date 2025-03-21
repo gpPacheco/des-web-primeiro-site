@@ -1,57 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Cadastro() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [idade, setIdade] = useState("");
-  const [user, setUser] = useState({});
+  const [input,setInput] = useState('');
+  const [tarefas, setTarefas] = useState([
+    "Estudar React",
+    "Estudar Node",
+    "Estudar MongoDB",
+  ]);
+  const tarfaStorage = localStorage.getItem('@tarefas');
+
+  useEffect(() => {
+    prompt('Qual o seu nome?')
+    localStorage.setItem('nome')
+  },[])  
+  
+  useEffect(() => {
+    if(tarfaStorage) {
+      setTarefas(JSON.parse(tarfaStorage));
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('@tarefas', JSON.stringify(tarefas));
+  }, [tarefas]);
   function handleRegistro(e) {
     e.preventDefault();
-    setUser({
-      nome: nome,
-      idade: idade,
-      email: email,
-    });
+
+    setTarefas([...tarefas, input])
+    setInput('');
   }
+
   return (
     <div>
       <form onSubmit={handleRegistro}>
-        <label>Nome: </label>
-        <br />
+        <label>Nome da tarefa: </label>
+        < br/>
         <input
-          placeholder="Digite seu Nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          placeholder="Digite o nome da tarefa"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
         <br />
-        <label>Email: </label>
-        <br />
-        <input
-          placeholder="Digite seu Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label>Idade: </label>
-        <br />
-        <input
-          placeholder="Digite sua Idade"
-          value={idade}
-          onChange={(e) => setIdade(e.target.value)}
-        />
-        <br />
+
         <button type="submit">Registro</button>
       </form>
       <br />
-      <br />
-      <div>
-        <span>Bem vindo, {user.nome}</span>
-        <br />
-        <span>Idade: {user.idade}</span>
-        <br />
-        <span>Email: {user.email}</span>
-        <br />
-      </div>
+      <ul>
+        {tarefas.map(tarefa => (
+          <li key={tarefa}>{tarefa}</li>
+        ))}
+      </ul>
+
     </div>
   );
 }

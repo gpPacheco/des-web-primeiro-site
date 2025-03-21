@@ -4,7 +4,7 @@ import Cadastro from './components/Cadastro';
 
 const cadastro = ReactDOM.createRoot(document.getElementById('cadastro'));
 cadastro.render(
-  <React.StrictMode>
+  <>
       <Cadastro />
-  </React.StrictMode>
+  </>
 );
